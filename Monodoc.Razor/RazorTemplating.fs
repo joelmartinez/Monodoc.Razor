@@ -8,7 +8,7 @@
     open RazorEngine.Templating
     open RazorEngine.Configuration
 
-    type XTRTemplateBase<'T>() =
+    type RazorTemplateBase<'T>() =
         inherit TemplateBase()
 
         let templateMap = new Dictionary<string, Func<TemplateWriter>>()
@@ -24,15 +24,15 @@
             ""
         member this.getTemplates = templateMap
 
+
+    type RazorTemplateBase() = 
+        inherit RazorTemplateBase<XDocument>()
+
+        let join (seq:IEnumerable<string>) = System.String.Join(Environment.NewLine, seq |> Seq.toArray)
+
         static member Initialize = 
             let config = new TemplateServiceConfiguration()
             config.Namespaces <- new HashSet<string>([|"Monodoc.Razor"|])
 
             let service = RazorEngineService.Create(config)
             RazorEngine.Engine.Razor <- service
-
-    type XTRTemplateBase() = 
-        inherit XTRTemplateBase<XDocument>()
-
-        let join (seq:IEnumerable<string>) = System.String.Join(Environment.NewLine, seq |> Seq.toArray)
-           
