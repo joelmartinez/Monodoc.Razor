@@ -55,6 +55,7 @@
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="RazorTemplating.fs" />
     <Compile Include="Renderer.fs" />
+    <Compile Include="Monodoc.fs" />
     <Compile Include="Script.fsx" />
   </ItemGroup>
   <ItemGroup>
