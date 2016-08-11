@@ -1,4 +1,4 @@
-﻿module public Renderer 
+﻿module public Monodoc.Razor.Renderer 
     open System.Xml.Linq
     open RazorEngine
     open RazorEngine.Templating

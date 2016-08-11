@@ -8,6 +8,6 @@ type Test() =
 
     [<Test>]
     member x.TestCase() =
-        Renderer.add
+        Renderer.add "" ""
         Assert.IsTrue(false)
 
