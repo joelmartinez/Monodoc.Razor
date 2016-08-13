@@ -25,7 +25,7 @@
         member this.getTemplates = templateMap
 
 
-    type RazorTemplateBase() = 
+    type public RazorTemplateBase() = 
         inherit RazorTemplateBase<XDocument>()
 
         let join (seq:IEnumerable<string>) = System.String.Join(Environment.NewLine, seq |> Seq.toArray)

@@ -7,7 +7,10 @@ open Monodoc.Razor
 type Test() = 
 
     [<Test>]
-    member x.TestCase() =
-        Renderer.add "" ""
-        Assert.IsTrue(false)
+    member x.RendererUsesTemplate() =
+        RazorTemplateBase.Initialize
+        Renderer.add "type" "rendered"
+        let actual = Renderer.transform "type" "<Type></Type>"
+
+        Assert.AreEqual ("rendered", actual)
 
