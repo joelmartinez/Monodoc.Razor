@@ -6,19 +6,19 @@
 
 
 
-    type public RazorGenerator =
+    type public RazorGenerator() =
 
-
-        new () =
+        member x.Initialize() =
             RazorTemplateBase.Initialize
-            new RazorGenerator()
-
+        
+        member x.Add name template = 
+            Renderer.add name template
 
         interface IDocGenerator<string> with
             member this.Generate ((hs:HelpSource), (internalId:string), (context:Dictionary<string, string>)) =
 
                 let findTemplate (id:string) =
-                    if id.Contains("T:") then "type" else "namespace"
+                    context.["show"]
 
                 let source = hs.GetText internalId
 

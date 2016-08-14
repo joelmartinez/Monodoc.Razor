@@ -38,3 +38,9 @@ Thumbs.db
 
 #dotCover
 *.dotCover
+
+#custom Project Stuff
+SampleCode.zip
+SampleCode.tree
+SampleCode.dll
+SampleCodeDocs

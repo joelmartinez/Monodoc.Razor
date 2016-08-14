@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<monodoc>
+    <node label="Unit Test Doc Set" name="SampleCode" parent="libraries"/>
+    <source provider="ecma" basefile="SampleCode" path="SampleCode" />
+</monodoc>

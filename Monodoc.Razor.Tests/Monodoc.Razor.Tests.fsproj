@@ -48,6 +48,10 @@
     <Reference Include="RazorEngine">
       <HintPath>..\packages\RazorEngine.3.9.0\lib\net45\RazorEngine.dll</HintPath>
     </Reference>
+    <Reference Include="monodoc">
+      <HintPath>..\dependencies\monodoc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Test.fs" />
