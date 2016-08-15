@@ -8,4 +8,4 @@
     let transform (name:string) (xml:string) =
         let doc = XDocument.Parse(xml)
 
-        Engine.Razor.Run(name, typeof<XDocument>, doc)
+        Engine.Razor.Run(name, typeof<XDocument>, doc).Trim()
