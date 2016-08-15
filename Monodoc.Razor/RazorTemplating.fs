@@ -8,6 +8,11 @@
     open RazorEngine.Templating
     open RazorEngine.Configuration
 
+
+    type EcmaModel(doc:XDocument, context:Dictionary<string,string>) =
+        member this.Source = doc
+        member this.Context = context
+
     type RazorTemplateBase<'T>() =
         inherit TemplateBase()
 
@@ -26,7 +31,7 @@
 
 
     type public RazorTemplateBase() = 
-        inherit RazorTemplateBase<XDocument>()
+        inherit RazorTemplateBase<EcmaModel>()
 
         let join (seq:IEnumerable<string>) = System.String.Join(Environment.NewLine, seq |> Seq.toArray)
 
@@ -35,4 +40,4 @@
             config.Namespaces <- new HashSet<string>([|"Monodoc.Razor"; "System.Xml.Linq"|])
 
             let service = RazorEngineService.Create(config)
-            RazorEngine.Engine.Razor <- service
+            service

@@ -7,12 +7,10 @@
 
 
     type public RazorGenerator() =
+        let renderer = RazorRenderer()
 
-        member x.Initialize() =
-            RazorTemplateBase.Initialize
-        
         member x.Add name template = 
-            Renderer.add name template
+            renderer.add name template
 
         interface IDocGenerator<string> with
             member this.Generate ((hs:HelpSource), (internalId:string), (context:Dictionary<string, string>)) =
@@ -22,6 +20,6 @@
 
                 let source = hs.GetText internalId
 
-                Renderer.transform (findTemplate internalId) source
+                renderer.transform (findTemplate internalId) source context
 
 

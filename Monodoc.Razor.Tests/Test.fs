@@ -1,5 +1,6 @@
 ﻿namespace Monodoc.Razor.Tests
 open System
+open System.Collections.Generic
 open NUnit.Framework
 open Monodoc
 open Monodoc.Razor
@@ -9,7 +10,6 @@ type Test() =
 
     let getGenerator = 
         let generator = new RazorGenerator()
-        generator.Initialize()
         generator
 
     let getTree = 
@@ -22,25 +22,41 @@ type Test() =
     let tree = getTree
 
 
-
     [<Test>]
     member x.RendererUsesTemplate() =
-        RazorTemplateBase.Initialize
-        Renderer.add "type" "rendered"
-        let actual = Renderer.transform "type" "<Type></Type>"
+
+        let renderer = RazorRenderer()
+
+        let context = Dictionary<string,string>()
+        renderer.add "type" "rendered"
+        let actual = renderer.transform "type" "<Type></Type>" context
 
         Assert.AreEqual ("rendered", actual)
 
-
+    
     [<Test>]
     member x.RendererUsedViaMonodoc() =
         let generator = getGenerator
 
         let typeTemplate = "@inherits RazorTemplateBase
-        @Model.Element(\"Type\").Attribute(\"Name\").Value"
+        @Model.Source.Element(\"Type\").Attribute(\"Name\").Value"
 
         generator.Add "typeoverview" typeTemplate
 
         let renderedOutput = tree.RenderUrl("T:My.Sample.SomeClass", generator)
 
         Assert.AreEqual("SomeClass", renderedOutput)
+
+
+    [<Test>]
+    member x.RendererUsedViaMonodoc_namespace() =
+        let generator = getGenerator
+
+        let typeTemplate = "@inherits RazorTemplateBase
+        @Model.Context[\"namespace\"]"
+
+        generator.Add "namespace" typeTemplate
+
+        let renderedOutput = tree.RenderUrl("N:My.Sample", generator)
+
+        Assert.AreEqual("My.Sample", renderedOutput)
