@@ -4,12 +4,21 @@
     open RazorEngine
     open RazorEngine.Templating
 
+    type Templates = Namespace=0 | Type=1 | Class=2 
+
     type RazorRenderer() =
         let engine = RazorTemplateBase.Initialize
         let id = System.Guid.NewGuid().ToString()
 
-        member x.add (name:string) (template:string) = 
-            engine.Compile(template, id+name, typeof<EcmaModel>)
+        let template_name (ttype:Templates) = 
+            match ttype with
+                | Templates.Namespace -> "namespace"
+                | Templates.Type -> "typeoverview"
+                | Templates.Class -> "class"
+
+
+        member x.add (name:Templates) (template:string) = 
+            engine.Compile(template, (id+(template_name name)), typeof<EcmaModel>)
 
         member x.transform (name:string) (xml:string) (context:Dictionary<string,string>) =
             let doc = XDocument.Parse(xml)

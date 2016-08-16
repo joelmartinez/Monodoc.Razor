@@ -28,8 +28,8 @@ type Test() =
         let renderer = RazorRenderer()
 
         let context = Dictionary<string,string>()
-        renderer.add "type" "rendered"
-        let actual = renderer.transform "type" "<Type></Type>" context
+        renderer.add Templates.Type "rendered"
+        let actual = renderer.transform "typeoverview" "<Type></Type>" context
 
         Assert.AreEqual ("rendered", actual)
 
@@ -41,7 +41,7 @@ type Test() =
         let typeTemplate = "@inherits RazorTemplateBase
         @Model.Source.Element(\"Type\").Attribute(\"Name\").Value"
 
-        generator.Add "typeoverview" typeTemplate
+        generator.Add Templates.Type typeTemplate
 
         let renderedOutput = tree.RenderUrl("T:My.Sample.SomeClass", generator)
 
@@ -55,7 +55,7 @@ type Test() =
         let typeTemplate = "@inherits RazorTemplateBase
         @Model.Context[\"namespace\"]"
 
-        generator.Add "namespace" typeTemplate
+        generator.Add Templates.Namespace typeTemplate
 
         let renderedOutput = tree.RenderUrl("N:My.Sample", generator)
 
