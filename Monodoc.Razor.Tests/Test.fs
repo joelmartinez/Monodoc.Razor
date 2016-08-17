@@ -28,8 +28,10 @@ type Test() =
         let renderer = RazorRenderer()
 
         let context = Dictionary<string,string>()
+        context.Add ("show", "type")
+
         renderer.add Templates.Type "rendered"
-        let actual = renderer.transform "typeoverview" "<Type></Type>" context
+        let actual = renderer.transform "typeoverview" "<Type></Type>" context "/"
 
         Assert.AreEqual ("rendered", actual)
 
@@ -60,3 +62,16 @@ type Test() =
         let renderedOutput = tree.RenderUrl("N:My.Sample", generator)
 
         Assert.AreEqual("My.Sample", renderedOutput)
+
+    [<Test>]
+    member x.RendererUsedViaMonodoc_method() =
+        let generator = getGenerator
+
+        let typeTemplate = "@inherits RazorTemplateBase
+        @Raw(Model.Doc.Attribute(\"MemberName\").Value)"
+
+        generator.Add Templates.Member typeTemplate
+
+        let renderedOutput = tree.RenderUrl("M:My.Sample.SomeClass.GetName(string)", generator)
+
+        Assert.AreEqual("GetName", renderedOutput)

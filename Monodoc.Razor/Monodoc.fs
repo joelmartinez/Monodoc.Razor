@@ -20,6 +20,10 @@
 
                 let source = hs.GetText internalId
 
-                renderer.transform (findTemplate internalId) source context
+                let docPath = match context.["show"] with
+                                | "member" -> sprintf "//Member[MemberType='%s']" context.["membertype"]
+                                | _ -> "/"
+
+                renderer.transform (findTemplate internalId) source context docPath
 
 
