@@ -10,7 +10,7 @@ open Monodoc.Razor
 [<TestFixture>]
 type Test() = 
 
-    let getGenerator = 
+    let getGenerator() = 
         let generator = new RazorGenerator()
         generator
 
@@ -40,7 +40,7 @@ type Test() =
     
     [<Test>]
     member x.RendererUsedViaMonodoc() =
-        let generator = getGenerator
+        let generator = getGenerator()
 
         let typeTemplate = "@inherits RazorTemplateBase
         @Model.Source.Element(\"Type\").Attribute(\"Name\").Value"
@@ -54,7 +54,7 @@ type Test() =
 
     [<Test>]
     member x.RendererUsedViaMonodoc_namespace() =
-        let generator = getGenerator
+        let generator = getGenerator()
 
         let typeTemplate = "@inherits RazorTemplateBase
         @Model.Context[\"namespace\"]"
@@ -67,7 +67,7 @@ type Test() =
 
     [<Test>]
     member x.RendererUsedViaMonodoc_method() =
-        let generator = getGenerator   
+        let generator = getGenerator() 
 
         let typeTemplate = "@inherits RazorTemplateBase
         @Raw(Model.Doc.Attribute(\"MemberName\").Value)"
@@ -80,7 +80,7 @@ type Test() =
 
     [<Test>]
     member x.FileNamespace() =
-        let generator = getGenerator  
+        let generator = getGenerator()
 
         let path = "../../../Templates/namespace.cshtml"
         let template = File.ReadAllText(path);
@@ -90,3 +90,17 @@ type Test() =
         let rendered = tree.RenderUrl("N:My.Sample", generator); 
 
         Assert.AreEqual(true, rendered.Contains("<h1>My.Sample"));
+
+
+    [<Test>]
+    member x.FileNamespaceTypeList() =
+        let generator = getGenerator()
+
+        let path = "../../../Templates/namespace.cshtml"
+        let template = File.ReadAllText(path);
+
+        generator.Add Templates.Namespace template
+
+        let rendered = tree.RenderUrl("N:My.Sample", generator); 
+
+        Assert.AreEqual(true, rendered.Contains("SomeClass"));

@@ -44,7 +44,7 @@
 
         static member Initialize = 
             let config = new TemplateServiceConfiguration()
-            config.Namespaces <- new HashSet<string>([|"Monodoc.Razor"; "System.Xml.Linq"|])
+            config.Namespaces <- new HashSet<string>([|"Monodoc.Razor"; "System.Xml.Linq"; "System.Xml.XPath"; "System.Linq" |])
 
             let service = RazorEngineService.Create(config)
             service
