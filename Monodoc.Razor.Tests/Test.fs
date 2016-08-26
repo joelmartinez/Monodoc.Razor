@@ -1,6 +1,8 @@
 ﻿namespace Monodoc.Razor.Tests
 open System
 open System.Collections.Generic
+open System.IO
+
 open NUnit.Framework
 open Monodoc
 open Monodoc.Razor
@@ -65,7 +67,7 @@ type Test() =
 
     [<Test>]
     member x.RendererUsedViaMonodoc_method() =
-        let generator = getGenerator
+        let generator = getGenerator   
 
         let typeTemplate = "@inherits RazorTemplateBase
         @Raw(Model.Doc.Attribute(\"MemberName\").Value)"
@@ -75,3 +77,16 @@ type Test() =
         let renderedOutput = tree.RenderUrl("M:My.Sample.SomeClass.GetName(string)", generator)
 
         Assert.AreEqual("GetName", renderedOutput)
+
+    [<Test>]
+    member x.FileNamespace() =
+        let generator = getGenerator  
+
+        let path = "../../../Templates/namespace.cshtml"
+        let template = File.ReadAllText(path);
+
+        generator.Add Templates.Namespace template
+
+        let rendered = tree.RenderUrl("N:My.Sample", generator); 
+
+        Assert.AreEqual(true, rendered.Contains("<h1>My.Sample"));

@@ -1,2 +1,10 @@
 @inherits RazorTemplateBase
-        @Model.Source.Element(\"Type\").Attribute(\"Name\").Value
+
+<h1>@Model.Source.Element(\"Type\").Attribute(\"Name\").Value</h1>
+
+@foreach(@Model.Members) {
+    <tr>
+        <td>@Model.</td>
+        <td></td>
+    </tr>
+}
