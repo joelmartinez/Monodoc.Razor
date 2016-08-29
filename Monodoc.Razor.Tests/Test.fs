@@ -104,3 +104,16 @@ type Test() =
         let rendered = tree.RenderUrl("N:My.Sample", generator); 
 
         Assert.AreEqual(true, rendered.Contains("SomeClass"));
+
+    [<Test>]
+    member x.FileTypeMemberList() =
+        let generator = getGenerator()
+
+        let path = "../../../Templates/typeoverview.cshtml"
+        let template = File.ReadAllText(path);
+
+        generator.Add Templates.Type template
+
+        let rendered = tree.RenderUrl("T:My.Sample.SomeClass", generator); 
+
+        Assert.AreEqual(true, rendered.Contains("GetName"));

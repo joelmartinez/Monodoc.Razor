@@ -2,3 +2,8 @@
 
 <h1>@Raw(Model.Doc.Attribute("MemberName").Value)</h1>
 
+<ul>
+@foreach(var type in @Model.Source.XPathSelectElements("//class")) {
+        <li>@type.Attribute("name").Value</li>
+}
+</ul>
