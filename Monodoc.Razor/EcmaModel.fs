@@ -6,7 +6,6 @@
     open System.Xml.Linq
     open System.Xml.XPath
 
-
     type EcmaModel(doc:XDocument, context:Dictionary<string,string>, xpath:string) =
         let index = match context.["show"] with
                         | "member" -> Int32.Parse context.["index"]
@@ -17,3 +16,5 @@
         member this.XPath = xpath
 
         member this.Doc with get () = this.Source.XPathSelectElements(this.XPath).Skip(index).First()
+
+        member this.TypeMembers with get() = this.Source.XPathSelectElements("//Member")

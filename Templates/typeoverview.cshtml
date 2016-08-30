@@ -3,7 +3,7 @@
 <h1>@Model.Source.Element("Type").Attribute("Name").Value</h1>
 
 <ul>
-@foreach(var member in @Model.Source.XPathSelectElements("//Member")) {
+@foreach(var member in @Model.TypeMembers) {
         <li>@member.Attribute("MemberName").Value</li>
 }
 </ul>
