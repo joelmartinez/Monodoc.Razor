@@ -15,6 +15,15 @@
         member this.Context = context
         member this.XPath = xpath
 
-        member this.Doc with get () = this.Source.XPathSelectElements(this.XPath).Skip(index).First()
+        member this.Doc with get () = match this.XPath with 
+                                        | x when x= "/" -> this.Source.Root
+                                        | _ -> this.Source
+                                                    .XPathSelectElements(this.XPath)
+                                                    .Skip(index)
+                                                    .First() 
+
+                                                
+        member this.Summary with get () = this.Doc.XPathSelectElement("Summary|summary")
+        member this.Remarks with get () = this.Doc.XPathSelectElement("Remarks|remarks")
 
         member this.TypeMembers with get() = this.Source.XPathSelectElements("//Member")

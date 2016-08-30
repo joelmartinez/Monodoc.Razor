@@ -1,0 +1,6 @@
+<Namespace Name="My.Sample">
+  <Docs>
+    <summary>My.Sample Summary Text</summary>
+    <remarks>My.Sample Remarks Text</remarks>
+  </Docs>
+</Namespace>

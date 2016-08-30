@@ -117,3 +117,16 @@ type Test() =
         let rendered = tree.RenderUrl("T:My.Sample.SomeClass", generator); 
 
         Assert.AreEqual(true, rendered.Contains("GetName"));
+
+    [<Test>]
+    member x.FileNamespaceSummary() =
+        let generator = getGenerator()
+
+        let path = "../../../Templates/namespace.cshtml"
+        let template = File.ReadAllText(path);
+
+        generator.Add Templates.Namespace template
+
+        let rendered = tree.RenderUrl("N:My.Sample", generator); 
+
+        Assert.AreEqual(true, rendered.Contains("My.Sample Summary Text"));

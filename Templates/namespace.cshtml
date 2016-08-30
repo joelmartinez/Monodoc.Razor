@@ -1,6 +1,13 @@
 @inherits RazorTemplateBase
 <h1>@Model.Context["namespace"]</h1>
 
+<h1>Summary</h1>
+<p>@Model.Summary</p>
+
+
+<h1>Remarks</h1>
+<p>@Model.Remarks</p>
+
 <ul>
 @foreach(var type in @Model.Source.XPathSelectElements("//class")) {
         <li>@type.Attribute("name").Value</li>
