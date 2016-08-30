@@ -6,10 +6,15 @@
     open System.Xml.Linq
     open System.Xml.XPath
 
+    open HtmlTranslator
+
     type EcmaModel(doc:XDocument, context:Dictionary<string,string>, xpath:string) =
         let index = match context.["show"] with
                         | "member" -> Int32.Parse context.["index"]
                         | _ -> 0
+
+        let getSummary (e:XElement) = html (e.XPathSelectElement("Summary|summary"))
+        let getRemarks (e:XElement) = html (e.XPathSelectElement("Remarks|remarks"))
 
         member this.Source = doc
         member this.Context = context
@@ -23,7 +28,7 @@
                                                     .First() 
 
                                                 
-        member this.Summary with get () = this.Doc.XPathSelectElement("Summary|summary")
-        member this.Remarks with get () = this.Doc.XPathSelectElement("Remarks|remarks")
+        member this.Summary with get () = getSummary this.Doc
+        member this.Remarks with get () = getRemarks this.Doc
 
         member this.TypeMembers with get() = this.Source.XPathSelectElements("//Member")

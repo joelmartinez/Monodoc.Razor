@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="HtmlTranslator.fs" />
     <Compile Include="EcmaModel.fs" />
     <Compile Include="RazorTemplating.fs" />
     <Compile Include="Renderer.fs" />
