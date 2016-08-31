@@ -9,7 +9,7 @@
 
     module HtmlTranslator =
         let rec render (doc:XObject) (sb:StringBuilder) =
-            let renderNodes (nodes:IEnumerable<XNode>) =
+            let renderNodes nodes =
                 nodes |> Seq.iter (fun d -> render d sb)
 
             match doc with
@@ -25,7 +25,7 @@
             | :? XText as t -> sb.Append(t.Value) |> ignore 
             | _ -> failwith "unknown node type"
 
-        let html (doc:XElement)  = 
+        let html doc  = 
             let sb = StringBuilder()
             render doc sb
 
