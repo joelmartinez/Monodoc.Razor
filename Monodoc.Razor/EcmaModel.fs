@@ -13,8 +13,8 @@
                         | "member" -> Int32.Parse context.["index"]
                         | _ -> 0
 
-        let getSummary (e:XElement) = html (e.XPathSelectElement("Summary|summary"))
-        let getRemarks (e:XElement) = html (e.XPathSelectElement("Remarks|remarks"))
+        let getSummary (e:XElement) = html (e.XPathSelectElement("Summary|summary|Docs/summary|Docs/Summary"))
+        let getRemarks (e:XElement) = html (e.XPathSelectElement("Remarks|remarks|Docs/remarks|Docs/Remarks"))
 
         member this.Source = doc
         member this.Context = context

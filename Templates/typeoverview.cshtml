@@ -2,6 +2,13 @@
 
 <h1>@Model.Source.Element("Type").Attribute("Name").Value</h1>
 
+<h1>Summary</h1>
+<p>@Model.Summary</p>
+
+
+<h1>Remarks</h1>
+<p>@Model.Remarks</p>
+
 <ul>
 @foreach(var member in @Model.TypeMembers) {
         <li>@member.Attribute("MemberName").Value</li>

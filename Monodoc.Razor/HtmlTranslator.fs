@@ -25,8 +25,11 @@
             | :? XText as t -> sb.Append(t.Value) |> ignore 
             | _ -> failwith "unknown node type"
 
-        let html doc  = 
-            let sb = StringBuilder()
-            render doc sb
+        let html doc  =
+            if doc = null then
+                String.Empty
+            else
+                let sb = StringBuilder()
+                render doc sb
 
-            sb.ToString()
+                sb.ToString()
