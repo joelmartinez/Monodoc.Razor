@@ -1,9 +1,10 @@
 
 TestData/SampleCode.dll:
-	mcs TestData/SampleCode.cs -target:library
+	mcs TestData/SampleCode.cs -target:library /doc:TestData/SampleCode.xml
 
 SampleCodeDocs: TestData/SampleCode.dll
-	mdoc update TestData/SampleCode.dll -o SampleCodeDocs
+	mdoc update -i TestData/SampleCode.xml TestData/SampleCode.dll -o SampleCodeDocs
+	cp TestData/ns-My.Sample.xml SampleCodeDocs/
 
 SampleCode.tree: update
 	cp TestData/ns-My.Sample.xml SampleCodeDocs/
@@ -24,7 +25,7 @@ update: SampleCodeDocs
 assemble: SampleCode.tree
 
 clean: 
-	rm TestData/SampleCode.dll SampleCode.tree SampleCode.zip
+	rm TestData/SampleCode.dll TestData/SampleCode.xml SampleCode.tree SampleCode.zip
 	rm -rf SampleCodeDocs
 	rm -rf Monodoc.Razor.Tests/bin
 	rm -rf Monodoc.Razor.Tests/obj
