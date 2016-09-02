@@ -17,7 +17,8 @@
         [<DefaultValue>] val mutable public Model:'T
         [<DefaultValue>] val mutable public currentContext:XElement 
 
-        member this.Html = RazorHtmlHelper(this)
+        member public this.Html = RazorHtmlHelper(this)
+
         override this.SetModel model =
             this.Model <- model :?> 'T
             base.SetModel(model)
@@ -27,7 +28,6 @@
             let ecmaModel = l :?> RazorTemplateBase<EcmaModel>
             ecmaModel.Model <- this.Model
             l
-
 
         member this.Match xpath delegateReference =
             templateMap.Add(xpath, delegateReference)
@@ -39,7 +39,7 @@
         member this.Template = template
 
         member this.RenderPartial (templateName:string) =
-            this.Template.Include(templateName, this.Template.Model)
+            this.Template.Include(this.Template.Model.Context.["renderer-id"] + templateName, this.Template.Model)
 
         member this.RenderPartial (templateName:string, model:Object) =
             this.Template.Include(templateName, model)
@@ -53,6 +53,7 @@
         static member Initialize = 
             let config = new TemplateServiceConfiguration()
             config.Namespaces <- new HashSet<string>([|"Monodoc.Razor"; "System.Xml.Linq"; "System.Xml.XPath"; "System.Linq" |])
+            config.BaseTemplateType <- typeof<RazorTemplateBase>
 
             let service = RazorEngineService.Create(config)
             service

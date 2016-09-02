@@ -32,10 +32,26 @@ type Test() =
         let context = Dictionary<string,string>()
         context.Add ("show", "type")
 
-        renderer.add Templates.Type "rendered"
+        renderer.add (Templates.Type, "@inherits RazorTemplateBase 
+        rendered")
         let actual = renderer.transform "typeoverview" "<Type></Type>" context "/"
 
         Assert.AreEqual ("rendered", actual)
+
+
+    [<Test>]
+    member x.RendererPartials() =
+
+        let renderer = RazorRenderer()
+
+        let context = Dictionary<string,string>()
+        context.Add ("show", "type")
+
+        renderer.add ("subtype", "partial")
+        renderer.add (Templates.Type, "rendered @Html.RenderPartial(\"subtype\")")
+        let actual = renderer.transform "typeoverview" "<Type></Type>" context "/"
+
+        Assert.AreEqual ("rendered partial", actual)
 
     
     [<Test>]

@@ -9,8 +9,8 @@
     type public RazorGenerator() =
         let renderer = RazorRenderer()
 
-        member x.Add name template = 
-            renderer.add name template
+        member x.Add (name:Templates) template = 
+            renderer.add (name, template)
 
         interface IDocGenerator<string> with
             member this.Generate ((hs:HelpSource), (internalId:string), (context:Dictionary<string, string>)) =
