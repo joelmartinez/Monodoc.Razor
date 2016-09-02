@@ -4,3 +4,17 @@
 
 @Html.RenderPartial(Templates.Summary)
 @Html.RenderPartial(Templates.Remarks)
+
+<ul>
+@foreach(var p in Model.MemberParameters) {
+        var name = p.Attribute("Name").Value;
+        var type = p.Attribute("Type").Value;
+        var parameterRemarks = Model.ParameterRemarks(name);
+
+        <li>
+                <span>@name</span>
+                @type
+                <blockquote>@Raw(parameterRemarks)</blockquote>
+        </li>
+}
+</ul>

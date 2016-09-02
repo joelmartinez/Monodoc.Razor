@@ -32,3 +32,7 @@
         member this.Remarks with get () = getRemarks this.Doc
 
         member this.TypeMembers with get() = this.Source.XPathSelectElements("//Member")
+        member this.MemberParameters with get() = this.Doc.XPathSelectElements("Parameters/Parameter")
+
+        member this.ParameterRemarks(name:string) = 
+            ("//param[@name='"+ name) + "']"  |> this.Doc.XPathSelectElement |> html

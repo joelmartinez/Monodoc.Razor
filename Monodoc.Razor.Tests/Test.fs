@@ -176,3 +176,13 @@ type Test() =
         let rendered = tree.RenderUrl("M:My.Sample.SomeClass.GetName(string)", generator); 
 
         Assert.AreEqual(true, rendered.Contains("My.Sample.SomeClass.GetName(string) Remarks"));
+
+    [<Test>]
+    member x.FileMemberParameterList() =
+        let generator = getGenerator()
+
+        generator |> loadMember |> loadShared
+
+        let rendered = tree.RenderUrl("M:My.Sample.SomeClass.GetName(string)", generator); 
+
+        Assert.AreEqual(true, rendered.Contains("prefix"));
