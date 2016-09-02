@@ -27,3 +27,12 @@
             let actual = html doc.Root
 
             Assert.AreEqual ("This <p>is</p> some text", actual)
+
+
+        [<Test>]
+        member x.HideToBeAdded() =
+            let doc = XDocument.Parse("<remarks>To be added.</remarks>")
+
+            let actual = doc.Root |> html
+
+            Assert.AreEqual ("", actual)

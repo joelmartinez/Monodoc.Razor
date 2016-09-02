@@ -32,4 +32,9 @@
                 let sb = StringBuilder()
                 render doc sb
 
-                sb.ToString()
+                let finalResult = sb.ToString()
+
+                if finalResult = "To be added." then
+                    String.Empty
+                else
+                    finalResult
