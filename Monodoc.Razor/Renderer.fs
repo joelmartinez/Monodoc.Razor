@@ -4,11 +4,7 @@
     open RazorEngine
     open RazorEngine.Templating
 
-    type Templates = 
-        | Namespace=0 
-        | Type=1 
-        | Class=2 
-        | Member=3
+
 
     type RazorRenderer() =
         let engine = RazorTemplateBase.Initialize
@@ -20,7 +16,7 @@
                 | Templates.Type -> "typeoverview"
                 | Templates.Class -> "class"
                 | Templates.Member -> "member"
-                | _ -> failwith "unknown template type: " + (int(ttype).ToString())
+                | _ -> ttype.ToString()
 
         
         member x.add (name:Templates, template:string) = 

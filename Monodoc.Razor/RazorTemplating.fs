@@ -8,7 +8,13 @@
     open RazorEngine.Templating
     open RazorEngine.Configuration
 
-
+    type Templates = 
+        | Namespace=0 
+        | Type=1 
+        | Class=2 
+        | Member=3
+        | Summary=4
+        | Remarks=5
 
     type RazorTemplateBase<'T when 'T :> EcmaModel>() =
         inherit TemplateBase()
@@ -37,6 +43,9 @@
 
     and public RazorHtmlHelper<'T when 'T :> EcmaModel>(template:RazorTemplateBase<'T>) =
         member this.Template = template
+
+        member this.RenderPartial (templateName:Templates) =
+            this.RenderPartial (templateName.ToString())
 
         member this.RenderPartial (templateName:string) =
             this.Template.Include(this.Template.Model.Context.["renderer-id"] + templateName, this.Template.Model)

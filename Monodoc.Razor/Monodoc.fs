@@ -4,8 +4,6 @@
     open System.Xml
     open System.Xml.Linq
 
-
-
     type public RazorGenerator() =
         let renderer = RazorRenderer()
 

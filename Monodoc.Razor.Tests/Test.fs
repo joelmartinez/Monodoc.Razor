@@ -23,6 +23,18 @@ type Test() =
 
     let tree = getTree
 
+    let (@@) a b = Path.Combine(a,b)
+
+    let getTemplate path = "../../../Templates" @@ path + ".cshtml" |> File.ReadAllText
+
+    let loadNamespace (generator:RazorGenerator) = 
+        let nstemplate = "namespace" |> getTemplate
+        let summarytemplate = "Shared" @@ "summary" |> getTemplate
+        let remarkstemplate = "Shared" @@ "remarks" |> getTemplate
+
+        generator.Add Templates.Namespace nstemplate
+        generator.Add Templates.Summary summarytemplate
+        generator.Add Templates.Remarks remarkstemplate
 
     [<Test>]
     member x.RendererUsesTemplate() =
@@ -98,10 +110,7 @@ type Test() =
     member x.FileNamespace() =
         let generator = getGenerator()
 
-        let path = "../../../Templates/namespace.cshtml"
-        let template = File.ReadAllText(path);
-
-        generator.Add Templates.Namespace template
+        generator |> loadNamespace
 
         let rendered = tree.RenderUrl("N:My.Sample", generator); 
 
@@ -112,10 +121,7 @@ type Test() =
     member x.FileNamespaceTypeList() =
         let generator = getGenerator()
 
-        let path = "../../../Templates/namespace.cshtml"
-        let template = File.ReadAllText(path);
-
-        generator.Add Templates.Namespace template
+        generator |> loadNamespace
 
         let rendered = tree.RenderUrl("N:My.Sample", generator); 
 
@@ -138,10 +144,7 @@ type Test() =
     member x.FileNamespaceSummary() =
         let generator = getGenerator()
 
-        let path = "../../../Templates/namespace.cshtml"
-        let template = File.ReadAllText(path);
-
-        generator.Add Templates.Namespace template
+        generator |> loadNamespace
 
         let rendered = tree.RenderUrl("N:My.Sample", generator); 
 

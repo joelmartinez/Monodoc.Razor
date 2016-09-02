@@ -1,9 +1,8 @@
 @inherits RazorTemplateBase
 <h1>@Model.Context["namespace"]</h1>
 
-<h1>Summary</h1>
-<p>@Model.Summary</p>
-
+@Html.RenderPartial(Templates.Summary)
+@Html.RenderPartial(Templates.Remarks)
 
 <h1>Remarks</h1>
 <p>@Model.Remarks</p>
