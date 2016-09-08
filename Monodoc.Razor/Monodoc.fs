@@ -12,16 +12,18 @@
 
         interface IDocGenerator<string> with
             member this.Generate ((hs:HelpSource), (internalId:string), (context:Dictionary<string, string>)) =
+                if hs = null then
+                    "content not found"
+                else
+                    let findTemplate (id:string) =
+                        context.["show"]
 
-                let findTemplate (id:string) =
-                    context.["show"]
+                    let source = hs.GetText internalId
 
-                let source = hs.GetText internalId
+                    let docPath = match context.["show"] with
+                                    | "member" -> sprintf "//Member[MemberType='%s']" context.["membertype"]
+                                    | _ -> "/"
 
-                let docPath = match context.["show"] with
-                                | "member" -> sprintf "//Member[MemberType='%s']" context.["membertype"]
-                                | _ -> "/"
-
-                renderer.transform (findTemplate internalId) source context docPath
+                    renderer.transform (findTemplate internalId) source context docPath
 
 
