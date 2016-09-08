@@ -27,6 +27,8 @@
                                                     .Skip(index)
                                                     .First() 
 
+        member this.RenderSignature(name:string) =
+            name // TODO: render from this.Doc
                                                 
         member this.Summary with get () = getSummary this.Doc
         member this.Remarks with get () = getRemarks this.Doc

@@ -30,8 +30,10 @@ type Test() =
     let loadShared (generator:RazorGenerator) = 
         let summarytemplate = "Shared" @@ "summary" |> getTemplate
         let remarkstemplate = "Shared" @@ "remarks" |> getTemplate
+        let sigtemplate = "Shared" @@ "signature" |> getTemplate
         generator.Add Templates.Summary summarytemplate
         generator.Add Templates.Remarks remarkstemplate
+        generator.Add Templates.Signature sigtemplate
 
     let loadNamespace (generator:RazorGenerator) = 
         "namespace" |> getTemplate |> generator.Add Templates.Namespace 
