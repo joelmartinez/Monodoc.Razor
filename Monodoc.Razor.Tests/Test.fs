@@ -188,3 +188,23 @@ type Test() =
         let rendered = tree.RenderUrl("M:My.Sample.SomeClass.GetName(string)", generator); 
 
         Assert.AreEqual(true, rendered.Contains("prefix"));
+
+    [<Test>]
+    member x.FileTypeAttribute() =
+        let generator = getGenerator()
+
+        generator |> loadType |> loadShared
+
+        let rendered = tree.RenderUrl("T:My.Sample.SomeClass", generator); 
+
+        Assert.AreEqual(true, rendered.Contains("CLSCompliant"));
+
+    [<Test>]
+    member x.FileMemberAttribute() =
+        let generator = getGenerator()
+
+        generator |> loadMember |> loadShared
+
+        let rendered = tree.RenderUrl("F:My.Sample.SomeStruct.Value", generator); 
+
+        Assert.AreEqual(true, rendered.Contains("CLSCompliant"));

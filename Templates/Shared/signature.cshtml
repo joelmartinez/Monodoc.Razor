@@ -1,3 +1,8 @@
 <h2>Syntax</h2>
 
+@foreach(var attribute in @Model.Doc.XPathSelectElements("Attributes/Attribute")) {
+    <div>[
+    @attribute.Element("AttributeName").Value
+    ]</div>
+}
 @Model.RenderSignature("C#")
