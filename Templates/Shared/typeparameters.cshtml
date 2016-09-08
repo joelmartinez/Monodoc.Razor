@@ -1,0 +1,12 @@
+<h2>Type Parameters</h2>
+<ul>
+@foreach(var p in Model.GenericParameters) {
+        var name = p.Attribute("Name").Value;
+        var parameterRemarks = Model.GenericParameterRemarks(name);
+
+        <li>
+                <span>@name</span>
+                <blockquote>@Raw(parameterRemarks)</blockquote>
+        </li>
+}
+</ul>

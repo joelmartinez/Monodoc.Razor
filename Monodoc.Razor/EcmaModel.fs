@@ -38,6 +38,9 @@
 
         member this.TypeMembers with get() = this.Source.XPathSelectElements("//Member")
         member this.MemberParameters with get() = this.Doc.XPathSelectElements("Parameters/Parameter")
+        member this.GenericParameters with get() = this.Doc.XPathSelectElements("TypeParameters/TypeParameter")
 
+        member this.GenericParameterRemarks(name:string) = 
+            ("//typeparam[@name='"+ name) + "']"  |> this.Doc.XPathSelectElement |> html
         member this.ParameterRemarks(name:string) = 
             ("//param[@name='"+ name) + "']"  |> this.Doc.XPathSelectElement |> html

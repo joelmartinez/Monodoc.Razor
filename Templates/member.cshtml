@@ -4,8 +4,9 @@
 
 @Html.RenderPartial(Templates.Summary)
 @Html.RenderPartial(Templates.Signature)
-@Html.RenderPartial(Templates.Remarks)
+@Html.RenderPartial(Templates.GenericParameters)
 
+<h2>Parameters</h2>
 <ul>
 @foreach(var p in Model.MemberParameters) {
         var name = p.Attribute("Name").Value;
@@ -19,3 +20,5 @@
         </li>
 }
 </ul>
+
+@Html.RenderPartial(Templates.Remarks)

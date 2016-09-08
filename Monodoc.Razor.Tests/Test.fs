@@ -31,9 +31,11 @@ type Test() =
         let summarytemplate = "Shared" @@ "summary" |> getTemplate
         let remarkstemplate = "Shared" @@ "remarks" |> getTemplate
         let sigtemplate = "Shared" @@ "signature" |> getTemplate
+        let gparamtemplate = "Shared" @@ "typeparameters" |> getTemplate
         generator.Add Templates.Summary summarytemplate
         generator.Add Templates.Remarks remarkstemplate
         generator.Add Templates.Signature sigtemplate
+        generator.Add Templates.GenericParameters gparamtemplate
 
     let loadNamespace (generator:RazorGenerator) = 
         "namespace" |> getTemplate |> generator.Add Templates.Namespace 
@@ -178,6 +180,17 @@ type Test() =
         let rendered = tree.RenderUrl("M:My.Sample.SomeClass.GetName(string)", generator); 
 
         Assert.AreEqual(true, rendered.Contains("My.Sample.SomeClass.GetName(string) Remarks"));
+
+    [<Test>]
+    member x.FileMemberGenericParameterList() =
+        let generator = getGenerator()
+
+        generator |> loadMember |> loadShared
+
+        let rendered = tree.RenderUrl("M:My.Sample.SomeClass.GenericMethod<TParam>(TParam)", generator); 
+
+        Assert.AreEqual(true, rendered.Contains("genericParameter"));
+        Assert.AreEqual(true, rendered.Contains("TParam"));
 
     [<Test>]
     member x.FileMemberParameterList() =
