@@ -58,6 +58,7 @@
     <Compile Include="Test.fs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SignatureTests.fs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

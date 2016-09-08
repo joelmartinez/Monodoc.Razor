@@ -28,7 +28,10 @@
                                                     .First() 
 
         member this.RenderSignature(name:string) =
-            name // TODO: render from this.Doc
+            //let baseTypeName = this.Source.XPathSelectElement("Base/BaseTypeName").Value
+            //let isStruct = if baseTypeName = "System.ValueType" then true else false
+            let xpath = sprintf "TypeSignature[@Language='%s']|MemberSignature[@Language='%s']" name name
+            this.Doc.XPathSelectElement(xpath).Attribute(XName.op_Implicit "Value").Value // TODO: render with links from this.Doc
                                                 
         member this.Summary with get () = getSummary this.Doc
         member this.Remarks with get () = getRemarks this.Doc

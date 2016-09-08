@@ -4,4 +4,8 @@ namespace My.Sample {
         ///<remarks>My.Sample.SomeClass.GetName(string) Remarks</remarks>
         public string GetName(string prefix) { return string.Empty; }
     }
+
+    public struct SomeStruct {
+        public int Value;
+    }
 }
