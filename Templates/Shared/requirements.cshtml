@@ -1,0 +1,12 @@
+<div class="requirements">
+    <h2>Requirements</h2>
+    <p>
+        
+        
+@foreach(var assembly in @Model.Assemblies) {
+    <strong>Assembly:</strong> @Model.AssemblyName(assembly)<br />
+    <strong>Version:</strong> @Model.AssemblyVersion(assembly)<br />
+    
+}
+    </p>
+</div>

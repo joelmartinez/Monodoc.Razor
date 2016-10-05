@@ -17,6 +17,7 @@
         | Remarks=5
         | Signature=6
         | GenericParameters=7
+        | Requirements=8
 
     type RazorTemplateBase<'T when 'T :> EcmaModel>() =
         inherit TemplateBase()

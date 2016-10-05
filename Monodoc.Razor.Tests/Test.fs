@@ -32,10 +32,12 @@ type Test() =
         let remarkstemplate = "Shared" @@ "remarks" |> getTemplate
         let sigtemplate = "Shared" @@ "signature" |> getTemplate
         let gparamtemplate = "Shared" @@ "typeparameters" |> getTemplate
+        let rtemplate = "Shared" @@ "requirements" |> getTemplate
         generator.Add Templates.Summary summarytemplate
         generator.Add Templates.Remarks remarkstemplate
         generator.Add Templates.Signature sigtemplate
         generator.Add Templates.GenericParameters gparamtemplate
+        generator.Add Templates.Requirements rtemplate
 
     let loadNamespace (generator:RazorGenerator) = 
         "namespace" |> getTemplate |> generator.Add Templates.Namespace 
@@ -221,3 +223,23 @@ type Test() =
         let rendered = tree.RenderUrl("F:My.Sample.SomeStruct.Value", generator); 
 
         Assert.AreEqual(true, rendered.Contains("CLSCompliant"));
+
+    [<Test>]
+    member x.FileMemberAssemblyListing() =
+        let generator = getGenerator()
+
+        generator |> loadMember |> loadShared
+
+        let rendered = tree.RenderUrl("F:My.Sample.SomeStruct.Value", generator); 
+
+        Assert.AreEqual(true, rendered.Contains("<strong>Assembly:</strong> SampleCode"));
+
+    [<Test>]
+    member x.FileTypeAssemblyListing() =
+        let generator = getGenerator()
+
+        generator |> loadMember |> loadShared
+
+        let rendered = tree.RenderUrl("T:My.Sample.SomeStruct", generator); 
+
+        Assert.AreEqual(true, rendered.Contains("<strong>Assembly:</strong> SampleCode"));

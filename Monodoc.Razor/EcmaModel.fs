@@ -44,3 +44,19 @@
             ("//typeparam[@name='"+ name) + "']"  |> this.Doc.XPathSelectElement |> html
         member this.ParameterRemarks(name:string) = 
             ("//param[@name='"+ name) + "']"  |> this.Doc.XPathSelectElement |> html
+
+        member this.Assemblies with get () = 
+            let assemblies = this.Doc.XPathSelectElements("AssemblyInfo")
+            match assemblies with 
+            | null -> Seq.empty<XElement>
+            | _ -> assemblies
+
+        member this.AssemblyVersion(element:XElement) = 
+            let versions = element.Elements(XName.op_Implicit("AssemblyVersion")) |> Seq.map (fun v -> v.Value)
+            String.Join(", ", versions)
+
+        member this.AssemblyName(element:XElement) = 
+            let name = element.Element(XName.op_Implicit("AssemblyName"))
+            match name with
+            | null -> ""
+            | _ -> name.Value

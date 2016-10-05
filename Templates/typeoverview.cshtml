@@ -6,9 +6,11 @@
 @Html.RenderPartial(Templates.Signature)
 @Html.RenderPartial(Templates.GenericParameters)
 @Html.RenderPartial(Templates.Remarks)
+@Html.RenderPartial(Templates.Requirements)
 
 <ul>
 @foreach(var member in @Model.TypeMembers) {
         <li>@member.Attribute("MemberName").Value</li>
 }
 </ul>
+
