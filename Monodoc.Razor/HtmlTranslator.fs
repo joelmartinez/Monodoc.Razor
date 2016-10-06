@@ -22,6 +22,14 @@
                     sb.Append("</p>") |> ignore
                 | "block" ->
                     sb.Append("<div>") |> ignore
+
+                    match e.Attribute(XName.op_Implicit("type")) with
+                    | null -> ()
+                    | t -> 
+                        match t.Value with
+                        | "behaviors" -> sb.Append("<h3>Operation</h3>") |> ignore
+                        | _ -> ()
+                    
                     e.Nodes() |> renderNodes
                     sb.Append("</div>") |> ignore
                 | _ -> e.Nodes() |> renderNodes

@@ -44,3 +44,12 @@
             let actual = doc.Root |> html
 
             Assert.AreEqual ("<div>sometext</div>", actual)
+
+
+        [<Test>]
+        member x.Block_Operator() =
+            let doc = XDocument.Parse("<block type=\"behaviors\">sometext</block>")
+
+            let actual = doc.Root |> html
+
+            Assert.AreEqual ("<div><h3>Operation</h3>sometext</div>", actual)
