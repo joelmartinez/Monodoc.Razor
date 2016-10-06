@@ -10,6 +10,7 @@ namespace My.Sample {
         public string GetName(string prefix) { return string.Empty; }
     }
 
+    ///<summary>Check out <see cref="T:My.Sample.SomeEnum" />.</summary>
     public struct SomeStruct {
         [CLSCompliant(true)]
         public int Value;

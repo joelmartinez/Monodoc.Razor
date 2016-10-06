@@ -35,6 +35,20 @@
                     
                     e.Nodes() |> renderNodes
                     sb.Append("</div>") |> ignore
+                | "see" -> 
+                    let href = 
+                               match e.Attribute(XName.op_Implicit("cref")) with
+                               | null -> "javascript:alert(\"Documentation not found.\")"
+                               | cref -> cref.Value
+                    let name = 
+                               match href.Contains(":") with
+                               | false -> href
+                               | true -> href.Split(':').[1]
+                    sb.AppendFormat("<a href=\"{0}\">{1}</a>", href, name) |> ignore
+                | "c" ->
+                    sb.Append("<code>") |> ignore
+                    e.Nodes() |> renderNodes
+                    sb.Append("</code>") |> ignore
                 | _ -> e.Nodes() |> renderNodes
 
             | :? XText as t -> sb.Append(t.Value) |> ignore 

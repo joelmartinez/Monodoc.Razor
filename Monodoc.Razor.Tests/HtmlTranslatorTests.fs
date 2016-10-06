@@ -77,3 +77,12 @@
             let actual = doc.Root |> html
 
             Assert.AreEqual ("<div><h3>Usage</h3>sometext</div>", actual)
+
+
+        [<Test>]
+        member x.See() =
+            let doc = XDocument.Parse("<para>Check out <see cref=\"T:My.Sample.SomeEnum\" />.</para>")
+
+            let actual = doc.Root |> html
+
+            Assert.AreEqual ("<p>Check out <a href=\"T:My.Sample.SomeEnum\">My.Sample.SomeEnum</a>.</p>", actual)
