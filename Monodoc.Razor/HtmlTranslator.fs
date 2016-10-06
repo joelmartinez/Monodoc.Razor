@@ -30,6 +30,7 @@
                         | "behaviors" -> sb.Append("<h3>Operation</h3>") |> ignore
                         | "note" -> sb.Append("Note: ") |> ignore
                         | "overrides" -> sb.Append("<h3>Note to Inheritors</h3>") |> ignore
+                        | "usage" -> sb.Append("<h3>Usage</h3>") |> ignore
                         | _ -> ()
                     
                     e.Nodes() |> renderNodes

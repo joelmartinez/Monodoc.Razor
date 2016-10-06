@@ -69,3 +69,11 @@
             let actual = doc.Root |> html
 
             Assert.AreEqual ("<div><h3>Note to Inheritors</h3>sometext</div>", actual)
+
+        [<Test>]
+        member x.Block_Usage() =
+            let doc = XDocument.Parse("<block type=\"usage\">sometext</block>")
+
+            let actual = doc.Root |> html
+
+            Assert.AreEqual ("<div><h3>Usage</h3>sometext</div>", actual)
