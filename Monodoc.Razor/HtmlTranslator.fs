@@ -15,11 +15,15 @@
             match doc with
             | :? XElement as e -> 
                 match e.Name.LocalName with
-                // TODO: include logic for individual constructs in ecma XML
+                // TODO: include logic for individual constructs in ecma XML: http://docs.go-mono.com/?link=man%3amdoc(5)
                 | "para" -> 
                     sb.Append("<p>") |> ignore
                     e.Nodes() |> renderNodes
                     sb.Append("</p>") |> ignore
+                | "block" ->
+                    sb.Append("<div>") |> ignore
+                    e.Nodes() |> renderNodes
+                    sb.Append("</div>") |> ignore
                 | _ -> e.Nodes() |> renderNodes
 
             | :? XText as t -> sb.Append(t.Value) |> ignore 
