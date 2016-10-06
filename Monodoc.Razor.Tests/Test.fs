@@ -238,7 +238,7 @@ type Test() =
     member x.FileTypeAssemblyListing() =
         let generator = getGenerator()
 
-        generator |> loadMember |> loadShared
+        generator |> loadType |> loadShared
 
         let rendered = tree.RenderUrl("T:My.Sample.SomeStruct", generator); 
 

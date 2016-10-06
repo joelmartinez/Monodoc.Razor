@@ -58,5 +58,9 @@
         member this.AssemblyName(element:XElement) = 
             let name = element.Element(XName.op_Implicit("AssemblyName"))
             match name with
-            | null -> ""
+            | null -> 
+                let parentName = element.XPathSelectElement("//AssemblyName")
+                match parentName with
+                | null -> ""
+                | _ -> parentName.Value
             | _ -> name.Value
