@@ -28,6 +28,7 @@
                     | t -> 
                         match t.Value with
                         | "behaviors" -> sb.Append("<h3>Operation</h3>") |> ignore
+                        | "note" -> sb.Append("Note: ") |> ignore
                         | _ -> ()
                     
                     e.Nodes() |> renderNodes
