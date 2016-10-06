@@ -61,3 +61,11 @@
             let actual = doc.Root |> html
 
             Assert.AreEqual ("<div>Note: sometext</div>", actual)
+
+        [<Test>]
+        member x.Block_Overrides() =
+            let doc = XDocument.Parse("<block type=\"overrides\">sometext</block>")
+
+            let actual = doc.Root |> html
+
+            Assert.AreEqual ("<div><h3>Note to Inheritors</h3>sometext</div>", actual)
